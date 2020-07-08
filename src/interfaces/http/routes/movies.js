@@ -14,10 +14,11 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/', async (req, res) => {
+router.get('/:filter', async (req, res) => {
   try {
-    const movies = await Movie.find()
-    res.send(movies)
+    const { filter } = req.params
+    const movies = await Movie.find({ censorshipLevel: filter })
+    res.status(200).send(movies)
   } catch (error) {
     res.status(500).send()
   }

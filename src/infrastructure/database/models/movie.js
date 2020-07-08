@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 
+const arraySize = (data) => {
+  return data.length <= 10
+}
+
 const Movie = mongoose.model('Movie', {
   name: {
     type: String,
@@ -22,7 +26,8 @@ const Movie = mongoose.model('Movie', {
   },
   actors: {
     type: Array,
-    required: true
+    required: true,
+    validate: [arraySize, 'Only 10 actors are permited']
   }
 })
 

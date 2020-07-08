@@ -8,9 +8,9 @@ const database = () => {
 
   const connectWithRetry = () => {
     mongoose.connect("mongodb://movies-db:27017/test", {useNewUrlParser: true, useCreateIndex: true}).then(()=>{
-      console.log('MongoDB is connected')
+      console.log('database is connected')
     }).catch(err=>{
-      console.log('MongoDB connection unsuccessful, retry after 5 seconds.')
+      console.log('database connection unsuccessful, retry after 5 seconds.')
       setTimeout(connectWithRetry, 5000)
     })
   }
