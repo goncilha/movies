@@ -1,14 +1,21 @@
 import express from 'express'
-import Movie from '../../../infrastructure/database/models/movie'
+import { save, getByCensorship, getAll } from '../../../infrastructure/repositories/movie'
 
 const router = express.Router()
 
 router.post('/', async (req, res) => {
-  const movie = new Movie(req.body)
-
   try {
-    await movie.save()
+    const movie = await save(req.body)
     res.status(201).send(movie)
+  } catch (error) {
+    res.status(500).send()
+  }
+})
+
+router.get('/', async (req, res) => {
+  try {
+    const movies = await getAll()
+    res.status(200).send(movies)
   } catch (error) {
     res.status(500).send()
   }
@@ -16,8 +23,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:filter', async (req, res) => {
   try {
-    const { filter } = req.params
-    const movies = await Movie.find({ censorshipLevel: filter })
+    const movies = await getByCensorship(req.params)
     res.status(200).send(movies)
   } catch (error) {
     res.status(500).send()

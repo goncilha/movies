@@ -1,11 +1,6 @@
 import mongoose from 'mongoose'
 
 const database = () => {
-  mongoose.connect('mongodb://movies-db:27017/test', {
-    useNewUrlParser: true,
-    useCreateIndex: true
-  })
-
   const connectWithRetry = () => {
     mongoose.connect("mongodb://movies-db:27017/test", {useNewUrlParser: true, useCreateIndex: true}).then(()=>{
       console.log('database is connected')
